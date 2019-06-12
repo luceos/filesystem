@@ -1,0 +1,27 @@
+{
+  "name": "fof/filesystem-drivers",
+  "description": "Allowing Flarum extensions to request filesystem configuration",
+  "authors": [{
+    "name": "Daniël Klabbers",
+    "email": "daniel@klabbers.email",
+    "homepage": "http://luceos.com"
+  }],
+  "require": {
+    "flarum/core": "^0.1.0-beta.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "FoF\\FilesystemDrivers\\": "src/"
+    }
+  },
+  "extra": {
+    "flarum-extension": {
+      "title": "Filesystem Drivers",
+      "icon": {
+        "name": "boxes",
+        "color": "#ffffff",
+        "backgroundColor": "#e74c3c"
+      }
+    }
+  }
+}

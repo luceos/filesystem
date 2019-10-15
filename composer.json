@@ -1,13 +1,14 @@
 {
   "name": "fof/filesystem-drivers",
-  "description": "Allowing Flarum extensions to request filesystem configuration",
+  "description": "Allowing Flarum extensions to request user configured filesystems.",
+  "type": "flarum-extension",
   "authors": [{
     "name": "Daniël Klabbers",
     "email": "daniel@klabbers.email",
     "homepage": "http://luceos.com"
   }],
   "require": {
-    "flarum/core": "^0.1.0-beta.9"
+    "flarum/core": "^0.1.0-beta.10"
   },
   "autoload": {
     "psr-4": {

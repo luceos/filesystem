@@ -2,6 +2,7 @@
 
 namespace FoF\FilesystemDrivers;
 
+use FoF\FilesystemDrivers\Contract\Adapter;
 use FoF\FilesystemDrivers\Extension\DriverRequirement;
 
 class Manager
@@ -27,5 +28,10 @@ class Manager
     public function adapters(): Adapters
     {
         return $this->adapters;
+    }
+
+    public function retrieve(string $key): ?Adapter
+    {
+
     }
 }

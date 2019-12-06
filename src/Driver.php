@@ -11,7 +11,7 @@ use Illuminate\Support\Fluent;
  * @property array|null $rules
  * @property string $class
  */
-class Driver extends Fluent implements Adapter
+abstract class Driver extends Fluent implements Adapter
 {
     public function isEnabled(): bool
     {
@@ -27,5 +27,10 @@ class Driver extends Fluent implements Adapter
     public function isInstalled(): bool
     {
         return class_exists($this->class);
+    }
+
+    public function isPublic(): bool
+    {
+        return false;
     }
 }

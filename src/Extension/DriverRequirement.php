@@ -2,6 +2,8 @@
 
 namespace FoF\FilesystemDrivers\Extension;
 
+use Flarum\Extension\Extension;
+
 class DriverRequirement
 {
     /**
@@ -18,10 +20,15 @@ class DriverRequirement
     private $title = null;
 
     private $description = null;
+    /**
+     * @var Extension
+     */
+    private $extension;
 
-    public function __construct(string $settingKey)
+    public function __construct(Extension $extension, string $settingKey)
     {
         $this->settingKey = $settingKey;
+        $this->extension = $extension;
     }
 
     /**

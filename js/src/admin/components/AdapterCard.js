@@ -10,10 +10,9 @@ import saveSettings from 'flarum/utils/saveSettings';
 export default class AdapterCard extends Component {
     init() {
         this.adapter = this.props.adapter;
-        this.settings = this.props.settings;
         this.icon = this.props.icon;
-        this.available = !!this.props.settings.available;
-        this.adaptersEnabled = m.prop((app.data.settings['flagrow-backup.adapters.enabled'] || '').split(','));
+        this.available = !!this.adapter['installed'];
+        this.enabled = !!this.adapter['enabled'];
     }
 
     view() {
@@ -34,15 +33,11 @@ export default class AdapterCard extends Component {
                     </Dropdown>
                 ) : ''}
                 <label className="ExtensionListItem-title">
-                    <input type="checkbox" checked={this.isEnabled(this.adapter)} onclick={this.toggle.bind(this, this.adapter)}/> {' '}
-                    {app.translator.trans('flagrow-backup.admin.adapters.' + this.adapter)}
+                    <input type="checkbox" checked={this.enabled} onclick={this.toggle.bind(this, this.adapter['name'])}/> {' '}
+                    {app.translator.trans('flagrow-backup.admin.adapters.' + this.adapter['name'])}
                 </label>
             </div>
         </li>;
-    }
-
-    isEnabled(adapter) {
-        return this.adaptersEnabled().indexOf(adapter) >= 0;
     }
 
     controls() {

@@ -5,21 +5,22 @@ namespace FoF\FilesystemDrivers;
 use Flarum\Foundation\AbstractServiceProvider;
 use FoF\FilesystemDrivers\Event\DriverLoading;
 use Illuminate\Contracts\Events\Dispatcher;
+use FoF\FilesystemDrivers\Drivers;
 
 class Provider extends AbstractServiceProvider
 {
     protected $defaultAdapters = [
-        'local' => \League\Flysystem\Adapter\Local::class,
-        'aliyun' => \Aliyun\Flysystem\AliyunOss\AliyunOssAdapter::class,
-        'azure' => \League\Flysystem\Azure\AzureAdapter::class,
-        'aws' => \League\Flysystem\AwsS3v3\AwsS3Adapter::class,
-        'dospaces' => \League\Flysystem\AwsS3v3\AwsS3Adapter::class,
-        'dropbox' => \Spatie\FlysystemDropbox\DropboxAdapter::class,
-        'ftp' => \League\Flysystem\Adapter\Ftp::class,
-        'gridfs' => \League\Flysystem\GridFS\GridFSAdapter::class,
-        'rackspace' => \League\Flysystem\Rackspace\RackspaceAdapter::class,
-        'sftp' => \League\Flysystem\Sftp\SftpAdapter::class,
-        'webdav' => \League\Flysystem\WebDAV\WebDAVAdapter::class,
+        Drivers\Aliyun::class,
+        Drivers\Aws::class,
+        Drivers\Azure::class,
+        Drivers\DigitalOcean::class,
+        Drivers\Dropbox::class,
+        Drivers\Ftp::class,
+        Drivers\GridFs::class,
+        Drivers\Local::class,
+        Drivers\Rackspace::class,
+        Drivers\Sftp::class,
+        Drivers\Webdav::class
     ];
 
     public function register()
@@ -33,8 +34,8 @@ class Provider extends AbstractServiceProvider
 
     protected function defaultAdapters(DriverLoading $event)
     {
-        foreach ($this->defaultAdapters as $name => $class) {
-            $event->drivers->push(new Driver());
+        foreach ($this->defaultAdapters as $adapter) {
+            $event->drivers->push($this->app->make($adapter));
         }
     }
 }

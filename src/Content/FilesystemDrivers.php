@@ -23,7 +23,7 @@ class FilesystemDrivers
     {
         Arr::set(
             $document->payload['settings'],
-            'fof-filesystem-drivers.adapters',
+            'fof-filesystem-drivers-adapters',
             $this->manager->adapters()->all()->toArray()
         );
     }

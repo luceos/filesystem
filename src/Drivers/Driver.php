@@ -33,6 +33,17 @@ abstract class Driver implements Arrayable
     {
         return $this->isInstalled();
     }
+    public function isEnabled(): bool
+    {
+        /** @var SettingsRepositoryInterface $settings */
+        $settings = app(SettingsRepositoryInterface::class);
+        $enabled = explode(',', $settings->get('fof-filesystem-adapters-enabled') ?? '');
+
+        return in_array(
+            $this->name,
+            $enabled
+        );
+    }
 
     /**
      * Whether the driver is in use by one or more extensions.
@@ -43,13 +54,7 @@ abstract class Driver implements Arrayable
      */
     public function isInUse(): bool
     {
-        /** @var SettingsRepositoryInterface $settings */
-        $settings = app(SettingsRepositoryInterface::class);
 
-        return in_array(
-            $this->name,
-            $settings->get('fof.filesystem-drivers.enabled_drivers') ?? []
-        );
     }
 
     /**
@@ -75,6 +80,7 @@ abstract class Driver implements Arrayable
         $attributes['available'] = $this->isAvailable();
         $attributes['in-use'] = $this->isInUse();
         $attributes['installed'] = $this->isInstalled();
+        $attributes['enabled'] = $this->isEnabled();
 
         return $attributes;
     }

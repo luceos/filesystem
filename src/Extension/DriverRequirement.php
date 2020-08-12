@@ -3,6 +3,7 @@
 namespace FoF\Filesystem\Extension;
 
 use Flarum\Extension\Extension;
+use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Contracts\Support\Arrayable;
 
 class DriverRequirement implements Arrayable
@@ -105,6 +106,18 @@ class DriverRequirement implements Arrayable
         $this->description = $description;
 
         return $this;
+    }
+
+    /**
+     * The driver this requirement is using.
+     *
+     * @return string|null
+     */
+    public function uses(): ?string
+    {
+        /** @var SettingsRepositoryInterface $settings */
+        $settings = app(SettingsRepositoryInterface::class);
+        return $settings->get($this->settingKey);
     }
 
     /**

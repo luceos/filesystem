@@ -12,7 +12,7 @@ export default class AdapterSettingsModal extends SettingsModal {
     }
 
     title() {
-        return app.translator.trans('fof-filesystem.admin.adapter-settings-modal.title', {adapter: this.adapter.name});
+        return app.translator.trans('fof-filesystem.admin.adapter-settings-modal.title', {adapter: this.adapter});
     }
 
     form() {
@@ -28,7 +28,7 @@ export default class AdapterSettingsModal extends SettingsModal {
             let field = null;
 
             const rules = this.rules[key].split('|');
-console.log(rules, key)
+
             for (let rule of rules) {
                 if (! field && rule + 'Field' in this) {
                     field = this[rule + 'Field'](key, rules);
@@ -80,10 +80,10 @@ console.log(rules, key)
     }
 
     fieldTranslatorKey(key, type) {
-        return 'flagrow-backup.admin.adapter-settings-modal.' + this.adapter + '.' + key + '.' + type;
+        return 'fof-filesystem.admin.settings.' + this.adapter + '.' + key + '.' + type;
     }
 
     fieldName(key) {
-        return 'flagrow-backup.settings.' + this.adapter + '.' + key;
+        return 'fof-filesystem.admin.settings.' + this.adapter + '.' + key;
     }
 }

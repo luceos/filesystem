@@ -1,0 +1,26 @@
+fof-filesystem:
+  admin:
+    nav:
+      label: Filesystems
+      description: Configure filesystems used by extensions.
+    button:
+      required_package: Packages required
+      settings: Settings
+    adapter-settings-modal:
+      title: "Settings for {adapter}"
+    adapters:
+      aliyun: Aliyun
+      aws: AWS
+      azure: Azure
+      do: Digital Ocean
+      dropbox: Dropbox
+      ftp: FTP
+      gridfs: GridFS
+      local: Local
+      rackspace: Rackspace
+      sftp: SFTP
+      webdav: Webdav
+    settings:
+      local:
+        target:
+          description: Target directory for storage, relative to Flarum root path.

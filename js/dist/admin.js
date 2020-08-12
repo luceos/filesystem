@@ -238,7 +238,7 @@ function (_Component) {
       type: "checkbox",
       checked: this.enabled,
       onclick: this.toggle.bind(this, this.adapter['name'])
-    }), " ", ' ', app.translator.trans('flagrow-backup.admin.adapters.' + this.adapter['name']))));
+    }), " ", ' ', app.translator.trans('fof-filesystem.admin.adapters.' + this.adapter['name']))));
   };
 
   _proto.controls = function controls() {
@@ -249,7 +249,7 @@ function (_Component) {
     if (!this.available) {
       items.add('required-package', flarum_components_Button__WEBPACK_IMPORTED_MODULE_4___default.a.component({
         icon: 'fas fa-cogs',
-        children: app.translator.trans('flagrow-backup.admin.required_package_button'),
+        children: app.translator.trans('fof-fileysystem.admin.button.required_package'),
         onclick: function onclick() {
           return app.modal.show(_RequiredPackageModal__WEBPACK_IMPORTED_MODULE_6__["default"], {
             adapter: _this2.adapter
@@ -261,7 +261,7 @@ function (_Component) {
 
     items.add('settings', flarum_components_Button__WEBPACK_IMPORTED_MODULE_4___default.a.component({
       icon: 'fas fa-cogs',
-      children: app.translator.trans('flagrow-backup.admin.settings_button'),
+      children: app.translator.trans('fof-filesystem.admin.button.settings'),
       onclick: function onclick() {
         return _this2.settingsModal();
       }
@@ -287,7 +287,7 @@ function (_Component) {
 
     this.adaptersEnabled(current);
     flarum_utils_saveSettings__WEBPACK_IMPORTED_MODULE_8___default()({
-      'flagrow-backup.adapters.enabled': current.filter(function (tmp) {
+      'fof-filesystem.adapters.enabled': current.filter(function (tmp) {
         return tmp.length > 0;
       }).join(',')
     });
@@ -345,7 +345,7 @@ function (_SettingsModal) {
 
   _proto.title = function title() {
     return flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('fof-filesystem.admin.adapter-settings-modal.title', {
-      adapter: this.adapter.name
+      adapter: this.adapter
     });
   };
 
@@ -360,7 +360,6 @@ function (_SettingsModal) {
     for (var key in this.rules) {
       var field = null;
       var rules = this.rules[key].split('|');
-      console.log(rules, key);
 
       for (var _iterator = rules, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
         var _ref;
@@ -422,11 +421,11 @@ function (_SettingsModal) {
   };
 
   _proto.fieldTranslatorKey = function fieldTranslatorKey(key, type) {
-    return 'flagrow-backup.admin.adapter-settings-modal.' + this.adapter + '.' + key + '.' + type;
+    return 'fof-filesystem.admin.settings.' + this.adapter + '.' + key + '.' + type;
   };
 
   _proto.fieldName = function fieldName(key) {
-    return 'flagrow-backup.settings.' + this.adapter + '.' + key;
+    return 'fof-filesystem.admin.settings.' + this.adapter + '.' + key;
   };
 
   return AdapterSettingsModal;

@@ -34,7 +34,7 @@ export default class AdapterCard extends Component {
                 ) : ''}
                 <label className="ExtensionListItem-title">
                     <input type="checkbox" checked={this.enabled} onclick={this.toggle.bind(this, this.adapter['name'])}/> {' '}
-                    {app.translator.trans('flagrow-backup.admin.adapters.' + this.adapter['name'])}
+                    {app.translator.trans('fof-filesystem.admin.adapters.' + this.adapter['name'])}
                 </label>
             </div>
         </li>;
@@ -46,7 +46,7 @@ export default class AdapterCard extends Component {
         if (! this.available) {
             items.add('required-package', Button.component({
                 icon: 'fas fa-cogs',
-                children: app.translator.trans('flagrow-backup.admin.required_package_button'),
+                children: app.translator.trans('fof-fileysystem.admin.button.required_package'),
                 onclick: () => app.modal.show(RequiredPackageModal,{
                     adapter: this.adapter
                 })
@@ -57,7 +57,7 @@ export default class AdapterCard extends Component {
 
         items.add('settings', Button.component({
             icon: 'fas fa-cogs',
-            children: app.translator.trans('flagrow-backup.admin.settings_button'),
+            children: app.translator.trans('fof-filesystem.admin.button.settings'),
             onclick: () => this.settingsModal()
         }));
 
@@ -83,8 +83,7 @@ export default class AdapterCard extends Component {
 
         this.adaptersEnabled(current);
         saveSettings({
-            'flagrow-backup.adapters.enabled':
-                current.filter(tmp => tmp.length > 0).join(',')
+            'fof-filesystem.adapters.enabled': current.filter(tmp => tmp.length > 0).join(',')
         });
     }
 }

@@ -8,7 +8,7 @@ fof-filesystem:
       settings: Settings
     adapter-settings-modal:
       title: "Settings for {adapter}"
-    requested-list: Requested adapters
+    requested-list: Requests
     adapters-list: Adapters
     adapters:
       aliyun: Aliyun

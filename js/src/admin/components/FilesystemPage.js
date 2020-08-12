@@ -1,5 +1,6 @@
 import Page from 'flarum/components/Page';
 import AdapterCard from "./AdapterCard";
+import RequirementCard from "./RequirementCard";
 
 export default class FilesystemPage extends Page {
     init() {
@@ -44,8 +45,10 @@ export default class FilesystemPage extends Page {
       const items = [];
 
       for (let requested of this.requested) {
-        items.push()
+        items.push(RequirementCard.component({requested, adapters: this.adapters}))
       }
+
+      return items;
     }
 
     adaptersList() {

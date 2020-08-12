@@ -2,14 +2,13 @@ import Component from 'flarum/Component';
 import ItemList from "flarum/utils/ItemList";
 import Dropdown from "flarum/components/Dropdown";
 import Button from 'flarum/components/Button';
-import AdapterSettingsModal from './AdapterSettingsModal';
-import RequiredPackageModal from './RequiredPackageModal';
 import icon from 'flarum/helpers/icon';
 import saveSettings from 'flarum/utils/saveSettings';
+import RequirementSettingModal from "./RequirementSettingModal";
 
 export default class RequirementCard extends Component {
     init() {
-        this.requirement = this.props.requirement;
+        this.requested = this.props.requested;
         // @todo if matched with an active driver, mark it enabled
         this.driver = false;
     }
@@ -17,11 +16,11 @@ export default class RequirementCard extends Component {
     view() {
         const controls = this.controls();
 
-        return <li className={'ExtensionListItem ' + (!this.driver ? 'disabled' : '')}>
+        return <li className={'ExtensionListItem '}>
             <div className="ExtensionListItem-content">
-                      <span className="ExtensionListItem-icon ExtensionIcon" onclick={() => this.available ? this.settingsModal() : null}>
-                          {icon(this.icon)}
-                      </span>
+                <span className="ExtensionListItem-icon ExtensionIcon" style={this.requested.icon} onClick={() => this.settingsModal()}>
+                  {this.requested.icon ? icon(this.requested.icon.name) : ''}
+                </span>
                 {!controls.isEmpty() ? (
                     <Dropdown
                         className="ExtensionListItem-controls"
@@ -32,8 +31,9 @@ export default class RequirementCard extends Component {
                     </Dropdown>
                 ) : ''}
                 <label className="ExtensionListItem-title">
-                    <input type="checkbox" checked={this.enabled} onclick={this.toggle.bind(this, this.adapter['name'])}/> {' '}
-                    {app.translator.trans('fof-filesystem.admin.adapters.' + this.adapter['name'])}
+                    <input type="checkbox" checked={this.driver} disabled/>
+                    {' '}{this.requested.extension ? this.requested.extension + ': ' : ''}{this.requested.title}
+                    {this.requested.description ? <div>{this.requested.description }</div> : ''}
                 </label>
             </div>
         </li>;
@@ -42,47 +42,36 @@ export default class RequirementCard extends Component {
     controls() {
         const items = new ItemList;
 
-        if (! this.available) {
-            items.add('required-package', Button.component({
-                icon: 'fas fa-cogs',
-                children: app.translator.trans('fof-fileysystem.admin.button.required_package'),
-                onclick: () => app.modal.show(RequiredPackageModal,{
-                    adapter: this.adapter
-                })
-            }));
-
-            return items;
-        }
-
         items.add('settings', Button.component({
-            icon: 'fas fa-cogs',
-            children: app.translator.trans('fof-filesystem.admin.button.settings'),
-            onclick: () => this.settingsModal()
+          icon: 'fas fa-cogs',
+          children: app.translator.trans('fof-filesystem.admin.button.settings'),
+          onclick: () => this.settingsModal()
         }));
 
         return items;
     }
 
     settingsModal() {
-        app.modal.show(AdapterSettingsModal, {
-            adapter: this.adapter
+        app.modal.show(RequirementSettingModal, {
+          requested: this.requested,
+          adapters: this.props.adapters
         });
     }
 
     toggle(adapter) {
-        const current = this.adaptersEnabled();
-        const foundAt = current.indexOf(adapter);
-
-        // found
-        if (foundAt >= 0) {
-            current.splice(foundAt, 1);
-        } else {
-            current.push(adapter);
-        }
-
-        this.adaptersEnabled(current);
-        saveSettings({
-            'fof-filesystem.adapters.enabled': current.filter(tmp => tmp.length > 0).join(',')
-        });
+        // const current = this.adaptersEnabled();
+        // const foundAt = current.indexOf(adapter);
+        //
+        // // found
+        // if (foundAt >= 0) {
+        //     current.splice(foundAt, 1);
+        // } else {
+        //     current.push(adapter);
+        // }
+        //
+        // this.adaptersEnabled(current);
+        // saveSettings({
+        //     'fof-filesystem.adapters.enabled': current.filter(tmp => tmp.length > 0).join(',')
+        // });
     }
 }

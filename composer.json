@@ -19,7 +19,7 @@
     "flarum-extension": {
       "title": "Filesystem",
       "icon": {
-        "name": "boxes",
+        "name": "fas fa-boxes",
         "color": "#ffffff",
         "backgroundColor": "#e74c3c"
       }

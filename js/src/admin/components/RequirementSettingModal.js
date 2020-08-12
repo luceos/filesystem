@@ -38,7 +38,8 @@ export default class RequirementSettingModal extends SettingsModal {
         m('label', {}, app.translator.trans('fof-filesystem.admin.requested-driver-modal.adapter')),
         Select.component({
           options: this.adapters,
-          value: this.requested.default
+          value: this.requested.default,
+          onchange: this.setting(this.requested.settingKey)
         }),
       ])
     );

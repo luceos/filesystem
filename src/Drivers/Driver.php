@@ -1,6 +1,6 @@
 <?php
 
-namespace FoF\Filesystem;
+namespace FoF\Filesystem\Drivers;
 
 use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Contracts\Support\Arrayable;

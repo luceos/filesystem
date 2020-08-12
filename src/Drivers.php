@@ -5,7 +5,7 @@ namespace FoF\Filesystem;
 use FoF\Filesystem\Event\DriverLoading;
 use Illuminate\Support\Collection;
 
-class Adapters
+class Drivers
 {
     public function get(string $key)
     {
@@ -25,6 +25,6 @@ class Adapters
 
         event(new DriverLoading($drivers));
 
-        return $drivers;
+        return $drivers->keyBy('name');
     }
 }

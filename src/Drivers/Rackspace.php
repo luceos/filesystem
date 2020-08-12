@@ -2,8 +2,6 @@
 
 namespace FoF\Filesystem\Drivers;
 
-use FoF\Filesystem\Driver;
-
 class Rackspace extends Driver
 {
     public $name = 'rackspace';

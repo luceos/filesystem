@@ -2,8 +2,6 @@
 
 namespace FoF\Filesystem\Drivers;
 
-use FoF\Filesystem\Driver;
-
 class Aws extends Driver
 {
     public $name = 'aws';

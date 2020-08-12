@@ -276,18 +276,9 @@ function (_Component) {
   };
 
   _proto.toggle = function toggle(adapter) {
-    var current = this.adaptersEnabled();
-    var foundAt = current.indexOf(adapter); // found
-
-    if (foundAt >= 0) {
-      current.splice(foundAt, 1);
-    } else {
-      current.push(adapter);
-    }
-
-    this.adaptersEnabled(current);
+    var enabled = this.props.ontoggle();
     flarum_utils_saveSettings__WEBPACK_IMPORTED_MODULE_8___default()({
-      'fof-filesystem.adapters.enabled': current.filter(function (tmp) {
+      'fof-filesystem-adapters-enabled': enabled.filter(function (tmp) {
         return tmp.length > 0;
       }).join(',')
     });
@@ -470,7 +461,8 @@ function (_Page) {
     _Page.prototype.init.call(this);
 
     this.adapters = app.data.settings['fof-filesystem-adapters'] || {};
-    this.requested = app.data.settings['fof-filesystem-requirements'] || {}; // Only needed in UX, so lets hack it in.
+    this.requested = app.data.settings['fof-filesystem-requirements'] || {};
+    this.adaptersEnabled = m.prop((app.data.settings['fof-filesystem-adapters-enabled'] || '').split(',')); // Only needed in UX, so lets hack it in.
 
     this.icons = {
       'local': 'fas fa-hdd',
@@ -541,18 +533,41 @@ function (_Page) {
   };
 
   _proto.adapterCards = function adapterCards() {
+    var _this = this;
+
     var items = [];
 
-    for (var i in this.adapters) {
-      var adapter = this.adapters[i];
-      var icon = adapter['icon'] || this.icons[adapter['name']] || 'fas fa-archive';
+    var _loop = function _loop(i) {
+      var adapter = _this.adapters[i];
+      var icon = adapter['icon'] || _this.icons[adapter['name']] || 'fas fa-archive';
       items.push(_AdapterCard__WEBPACK_IMPORTED_MODULE_2__["default"].component({
         adapter: adapter,
-        icon: icon
+        icon: icon,
+        ontoggle: function ontoggle(enabled) {
+          return _this.adapterToggled(adapter.name);
+        }
       }));
+    };
+
+    for (var i in this.adapters) {
+      _loop(i);
     }
 
     return items;
+  };
+
+  _proto.adapterToggled = function adapterToggled(adapter) {
+    var current = this.adaptersEnabled();
+    var enabled = current.indexOf(adapter) !== -1;
+
+    if (enabled) {
+      current.splice(current.indexOf(adapter), 1);
+    } else {
+      current.push(adapter);
+    }
+
+    this.adaptersEnabled(current);
+    return current;
   };
 
   _proto.config = function config() {};
@@ -829,7 +844,8 @@ function (_SettingsModal) {
       className: 'Form-group'
     }, [m('label', {}, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('fof-filesystem.admin.requested-driver-modal.adapter')), flarum_components_Select__WEBPACK_IMPORTED_MODULE_4___default.a.component({
       options: this.adapters,
-      value: this.requested.default
+      value: this.requested.default,
+      onchange: this.setting(this.requested.settingKey)
     })]));
     return items;
   };

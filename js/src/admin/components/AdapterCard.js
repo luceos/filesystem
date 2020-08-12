@@ -71,19 +71,10 @@ export default class AdapterCard extends Component {
     }
 
     toggle(adapter) {
-        const current = this.adaptersEnabled();
-        const foundAt = current.indexOf(adapter);
+      const enabled = this.props.ontoggle();
 
-        // found
-        if (foundAt >= 0) {
-            current.splice(foundAt, 1);
-        } else {
-            current.push(adapter);
-        }
-
-        this.adaptersEnabled(current);
         saveSettings({
-            'fof-filesystem.adapters.enabled': current.filter(tmp => tmp.length > 0).join(',')
+            'fof-filesystem-adapters-enabled': enabled.filter(tmp => tmp.length > 0).join(',')
         });
     }
 }

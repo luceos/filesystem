@@ -2,8 +2,6 @@
 
 namespace FoF\Filesystem\Drivers;
 
-use FoF\Filesystem\Driver;
-
 class Sftp extends Driver
 {
     public $name = 'sftp';

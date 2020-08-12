@@ -9,11 +9,11 @@ class Manager
 {
     protected $requirements = [];
     /**
-     * @var Adapters
+     * @var Drivers
      */
     private $adapters;
 
-    public function __construct(Adapters $adapters)
+    public function __construct(Drivers $adapters)
     {
         $this->adapters = $adapters;
     }
@@ -25,7 +25,7 @@ class Manager
         return $this;
     }
 
-    public function adapters(): Adapters
+    public function adapters(): Drivers
     {
         return $this->adapters;
     }
@@ -35,8 +35,8 @@ class Manager
         return collect($this->requirements)->toArray();
     }
 
-    public function retrieve(string $key): ?Adapter
+    public function retrieve(string $key): ?Driver
     {
-
+        return $this->adapters->get($key);
     }
 }

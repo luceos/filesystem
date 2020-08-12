@@ -8,6 +8,7 @@ export default class FilesystemPage extends Page {
 
         this.adapters = app.data.settings['fof-filesystem-adapters'] || {};
         this.requested = app.data.settings['fof-filesystem-requirements'] || {};
+        this.adaptersEnabled = m.prop((app.data.settings['fof-filesystem-adapters-enabled'] || '').split(','));
 
         // Only needed in UX, so lets hack it in.
         this.icons = {
@@ -64,10 +65,28 @@ export default class FilesystemPage extends Page {
             const adapter = this.adapters[i];
             const icon = adapter['icon'] || this.icons[adapter['name']] || 'fas fa-archive';
 
-            items.push(AdapterCard.component({adapter, icon}));
+            items.push(AdapterCard.component({
+              adapter, icon,
+              ontoggle: (enabled => this.adapterToggled(adapter.name))
+            }));
         }
 
         return items;
+    }
+
+    adapterToggled(adapter) {
+      let current = this.adaptersEnabled();
+      const enabled = current.indexOf(adapter) !== -1;
+
+      if (enabled) {
+        current.splice(current.indexOf(adapter), 1);
+      } else {
+        current.push(adapter);
+      }
+
+      this.adaptersEnabled(current);
+
+      return current;
     }
 
     config() {

@@ -8,6 +8,8 @@ fof-filesystem:
       settings: Settings
     adapter-settings-modal:
       title: "Settings for {adapter}"
+    requested-list: Requested adapters
+    adapters-list: Adapters
     adapters:
       aliyun: Aliyun
       aws: AWS

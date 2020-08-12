@@ -6,6 +6,7 @@ export default class FilesystemPage extends Page {
         super.init();
 
         this.adapters = app.data.settings['fof-filesystem-adapters'] || {};
+        this.requested = app.data.settings['fof-filesystem-requirements'] || {};
 
         // Only needed in UX, so lets hack it in.
         this.icons = {
@@ -24,9 +25,27 @@ export default class FilesystemPage extends Page {
     }
     view() {
         return m('div', {className: 'FilesystemsPage'}, [
-
+          m('div', {className: 'container'}, [
+            m('h3', {}, app.translator.trans('fof-filesystem.admin.requested-list')),
+            this.requestedList(),
+            m('h3', {}, app.translator.trans('fof-filesystem.admin.adapters-list')),
             this.adaptersList()
+          ])
         ]);
+    }
+
+    requestedList() {
+      return m('div', {className: 'ExtensionsPage-list'}, m('div', {className: 'container'},
+        m('ul', {className: 'Requirement ExtensionList'}, this.requiredCards())
+      ));
+    }
+
+    requiredCards() {
+      const items = [];
+
+      for (let requested of this.requested) {
+        items.push()
+      }
     }
 
     adaptersList() {

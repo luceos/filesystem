@@ -467,7 +467,8 @@ function (_Page) {
   _proto.init = function init() {
     _Page.prototype.init.call(this);
 
-    this.adapters = app.data.settings['fof-filesystem-adapters'] || {}; // Only needed in UX, so lets hack it in.
+    this.adapters = app.data.settings['fof-filesystem-adapters'] || {};
+    this.requested = app.data.settings['fof-filesystem-requirements'] || {}; // Only needed in UX, so lets hack it in.
 
     this.icons = {
       'local': 'fas fa-hdd',
@@ -487,7 +488,39 @@ function (_Page) {
   _proto.view = function view() {
     return m('div', {
       className: 'FilesystemsPage'
-    }, [this.adaptersList()]);
+    }, [m('div', {
+      className: 'container'
+    }, [m('h3', {}, app.translator.trans('fof-filesystem.admin.requested-list')), this.requestedList(), m('h3', {}, app.translator.trans('fof-filesystem.admin.adapters-list')), this.adaptersList()])]);
+  };
+
+  _proto.requestedList = function requestedList() {
+    return m('div', {
+      className: 'ExtensionsPage-list'
+    }, m('div', {
+      className: 'container'
+    }, m('ul', {
+      className: 'Requirement ExtensionList'
+    }, this.requiredCards())));
+  };
+
+  _proto.requiredCards = function requiredCards() {
+    var items = [];
+
+    for (var _iterator = this.requested, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+      var _ref;
+
+      if (_isArray) {
+        if (_i >= _iterator.length) break;
+        _ref = _iterator[_i++];
+      } else {
+        _i = _iterator.next();
+        if (_i.done) break;
+        _ref = _i.value;
+      }
+
+      var requested = _ref;
+      items.push();
+    }
   };
 
   _proto.adaptersList = function adaptersList() {

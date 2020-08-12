@@ -30,6 +30,11 @@ class Manager
         return $this->adapters;
     }
 
+    public function requirements(): array
+    {
+        return collect($this->requirements)->toArray();
+    }
+
     public function retrieve(string $key): ?Adapter
     {
 

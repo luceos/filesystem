@@ -3,8 +3,9 @@
 namespace FoF\Filesystem\Extension;
 
 use Flarum\Extension\Extension;
+use Illuminate\Contracts\Support\Arrayable;
 
-class DriverRequirement
+class DriverRequirement implements Arrayable
 {
     /**
      * @var string
@@ -104,5 +105,22 @@ class DriverRequirement
         $this->description = $description;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toArray()
+    {
+        return [
+            'extensionId' => $this->extension->getId(),
+            'extension' => $this->extension->name,
+            'settingKey' => $this->settingKey,
+            'title' => $this->title,
+            'description' => $this->description,
+            'default' => $this->default,
+            'public' => $this->public,
+            'ignore' => $this->ignore
+        ];
     }
 }

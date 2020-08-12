@@ -26,5 +26,11 @@ class FilesystemDrivers
             'fof-filesystem-adapters',
             $this->manager->adapters()->all()->toArray()
         );
+
+        Arr::set(
+            $document->payload['settings'],
+            'fof-filesystem-requirements',
+            $this->manager->requirements()
+        );
     }
 }

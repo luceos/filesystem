@@ -1,5 +1,5 @@
 {
-  "name": "fof/filesystem-drivers",
+  "name": "fof/filesystem",
   "description": "Allowing Flarum extensions to request user configured filesystems.",
   "type": "flarum-extension",
   "authors": [{
@@ -8,16 +8,16 @@
     "homepage": "http://luceos.com"
   }],
   "require": {
-    "flarum/core": "^0.1.0-beta.10"
+    "flarum/core": "^0.1.0-beta.13"
   },
   "autoload": {
     "psr-4": {
-      "FoF\\FilesystemDrivers\\": "src/"
+      "FoF\\Filesystem\\": "src/"
     }
   },
   "extra": {
     "flarum-extension": {
-      "title": "Filesystem Drivers",
+      "title": "Filesystem",
       "icon": {
         "name": "boxes",
         "color": "#ffffff",

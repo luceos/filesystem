@@ -1,8 +1,8 @@
 <?php
 
-namespace FoF\FilesystemDrivers\Drivers;
+namespace FoF\Filesystem\Drivers;
 
-use FoF\FilesystemDrivers\Driver;
+use FoF\Filesystem\Driver;
 
 class Aliyun extends Driver
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace FoF\FilesystemDrivers\Extend;
+namespace FoF\Filesystem\Extend;
 
 use Flarum\Extend\ExtenderInterface;
 use Flarum\Extension\Extension;
@@ -20,6 +20,7 @@ class Provider implements ExtenderInterface
 
     public function extend(Container $container, Extension $extension = null)
     {
-        $container->register($this->provider);
+        $app = $container->make('flarum');
+        $app->register($this->provider);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace FoF\FilesystemDrivers;
+namespace FoF\Filesystem;
 
 use Flarum\Extend\Frontend;
 

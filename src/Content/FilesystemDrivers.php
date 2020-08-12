@@ -1,9 +1,9 @@
 <?php
 
-namespace FoF\FilesystemDrivers\Content;
+namespace FoF\Filesystem\Content;
 
 use Flarum\Frontend\Document;
-use FoF\FilesystemDrivers\Manager;
+use FoF\Filesystem\Manager;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -23,7 +23,7 @@ class FilesystemDrivers
     {
         Arr::set(
             $document->payload['settings'],
-            'fof-filesystem-drivers-adapters',
+            'fof-filesystem-adapters',
             $this->manager->adapters()->all()->toArray()
         );
     }

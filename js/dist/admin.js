@@ -140,21 +140,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
-  app.routes.filesystem_drivers = {
-    path: '/filesystem-drivers',
+  app.routes.fof_filesystem = {
+    path: '/fof-filesystem',
     component: _components_FilesystemPage__WEBPACK_IMPORTED_MODULE_3__["default"].component()
   };
 
-  app.extensionSettings['fof-filesystem-drivers'] = function () {
-    return m.route(app.route('filesystem_drivers'));
+  app.extensionSettings['fof-filesystem'] = function () {
+    return m.route(app.route('fof_filesystem'));
   };
 
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_0__["extend"])(flarum_components_AdminNav__WEBPACK_IMPORTED_MODULE_1___default.a.prototype, 'items', function (items) {
-    items.add('filesystem_drivers', flarum_components_AdminLinkButton__WEBPACK_IMPORTED_MODULE_2___default.a.component({
-      href: app.route('filesystem_drivers'),
+    items.add('fof_filesystem', flarum_components_AdminLinkButton__WEBPACK_IMPORTED_MODULE_2___default.a.component({
+      href: app.route('fof_filesystem'),
       icon: 'fas fa-boxes',
-      children: app.translator.trans('fof-filesystem-drivers.admin.nav.label'),
-      description: app.translator.trans('fof-filesystem-drivers.admin.nav.description')
+      children: app.translator.trans('fof-filesystem.admin.nav.label'),
+      description: app.translator.trans('fof-filesystem.admin.nav.description')
     }));
   });
 });
@@ -251,9 +251,9 @@ function (_Component) {
         icon: 'fas fa-cogs',
         children: app.translator.trans('flagrow-backup.admin.required_package_button'),
         onclick: function onclick() {
-          return app.modal.show(new _RequiredPackageModal__WEBPACK_IMPORTED_MODULE_6__["default"]({
+          return app.modal.show(_RequiredPackageModal__WEBPACK_IMPORTED_MODULE_6__["default"], {
             adapter: _this2.adapter
-          }));
+          });
         }
       }));
       return items;
@@ -270,10 +270,9 @@ function (_Component) {
   };
 
   _proto.settingsModal = function settingsModal() {
-    app.modal.show(new _AdapterSettingsModal__WEBPACK_IMPORTED_MODULE_5__["default"]({
-      adapter: this.adapter,
-      settings: this.settings
-    }));
+    app.modal.show(_AdapterSettingsModal__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      adapter: this.adapter
+    });
   };
 
   _proto.toggle = function toggle(adapter) {
@@ -340,13 +339,13 @@ function (_SettingsModal) {
   _proto.init = function init() {
     _SettingsModal.prototype.init.call(this);
 
-    this.rules = this.props.settings.rules;
-    this.adapter = this.props.adapter;
+    this.adapter = this.props.adapter.name;
+    this.rules = this.props.adapter.rules;
   };
 
   _proto.title = function title() {
-    return flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('flagrow-backup.admin.adapter-settings-modal.title', {
-      adapter: this.adapter
+    return flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('fof-filesystem.admin.adapter-settings-modal.title', {
+      adapter: this.adapter.name
     });
   };
 
@@ -360,7 +359,8 @@ function (_SettingsModal) {
 
     for (var key in this.rules) {
       var field = null;
-      var rules = this.rules[key];
+      var rules = this.rules[key].split('|');
+      console.log(rules, key);
 
       for (var _iterator = rules, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
         var _ref;
@@ -384,9 +384,7 @@ function (_SettingsModal) {
       if (field) {
         items.add(key, m('div', {
           className: 'Form-group ' + (this.isRequired(rules) ? 'required' : '')
-        }, [flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.translations[this.fieldTranslatorKey(key, 'label')] ? m('label', {
-          for: 'bazaar-api-token'
-        }, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans(this.fieldTranslatorKey(key, 'label'))) : '', field, m('span', flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans(this.fieldTranslatorKey(key, 'description')))]));
+        }, [flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.translations[this.fieldTranslatorKey(key, 'label')] ? m('label', {}, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans(this.fieldTranslatorKey(key, 'label'))) : '', field, m('span', flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans(this.fieldTranslatorKey(key, 'description')))]));
       }
     }
 
@@ -470,7 +468,7 @@ function (_Page) {
   _proto.init = function init() {
     _Page.prototype.init.call(this);
 
-    this.adapters = app.data.settings['fof-filesystem-drivers-adapters'] || {}; // Only needed in UX, so lets hack it in.
+    this.adapters = app.data.settings['fof-filesystem-adapters'] || {}; // Only needed in UX, so lets hack it in.
 
     this.icons = {
       'local': 'fas fa-hdd',
@@ -596,7 +594,7 @@ function (_Modal) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _addFilesystemPane__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addFilesystemPane */ "./src/admin/addFilesystemPane.js");
 
-app.initializers.add('fof-filesystem-drivers', function (app) {
+app.initializers.add('fof-filesystem', function (app) {
   Object(_addFilesystemPane__WEBPACK_IMPORTED_MODULE_0__["default"])();
 });
 

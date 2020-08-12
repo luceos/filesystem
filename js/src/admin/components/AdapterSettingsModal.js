@@ -7,12 +7,12 @@ export default class AdapterSettingsModal extends SettingsModal {
     init() {
         super.init();
 
-        this.rules = this.props.settings.rules;
-        this.adapter = this.props.adapter;
+        this.adapter = this.props.adapter.name;
+        this.rules = this.props.adapter.rules;
     }
 
     title() {
-        return app.translator.trans('flagrow-backup.admin.adapter-settings-modal.title', {adapter: this.adapter});
+        return app.translator.trans('fof-filesystem.admin.adapter-settings-modal.title', {adapter: this.adapter.name});
     }
 
     form() {
@@ -27,8 +27,8 @@ export default class AdapterSettingsModal extends SettingsModal {
         for(const key in this.rules) {
             let field = null;
 
-            const rules = this.rules[key];
-
+            const rules = this.rules[key].split('|');
+console.log(rules, key)
             for (let rule of rules) {
                 if (! field && rule + 'Field' in this) {
                     field = this[rule + 'Field'](key, rules);
@@ -39,7 +39,7 @@ export default class AdapterSettingsModal extends SettingsModal {
                 items.add(key,
                     m('div', { className: 'Form-group ' + (this.isRequired(rules) ? 'required' : '') }, [
                         app.translator.translations[this.fieldTranslatorKey(key, 'label')] ?
-                            m('label', { for: 'bazaar-api-token' }, app.translator.trans(this.fieldTranslatorKey(key, 'label'))) : '',
+                            m('label', {}, app.translator.trans(this.fieldTranslatorKey(key, 'label'))) : '',
                         field,
                         m('span', app.translator.trans(this.fieldTranslatorKey(key, 'description')))
                     ]));

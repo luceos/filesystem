@@ -1,6 +1,6 @@
 <?php
 
-namespace FoF\FilesystemDrivers\Extension;
+namespace FoF\Filesystem\Extension;
 
 use Flarum\Extension\Extension;
 

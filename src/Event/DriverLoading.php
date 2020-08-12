@@ -1,6 +1,6 @@
 <?php
 
-namespace FoF\FilesystemDrivers\Event;
+namespace FoF\Filesystem\Event;
 
 use Illuminate\Support\Collection;
 

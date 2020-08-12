@@ -1,9 +1,9 @@
 <?php
 
-namespace FoF\FilesystemDrivers;
+namespace FoF\Filesystem;
 
-use FoF\FilesystemDrivers\Contract\Adapter;
-use FoF\FilesystemDrivers\Extension\DriverRequirement;
+use FoF\Filesystem\Contract\Adapter;
+use FoF\Filesystem\Extension\DriverRequirement;
 
 class Manager
 {

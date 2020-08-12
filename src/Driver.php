@@ -1,10 +1,11 @@
 <?php
 
-namespace FoF\FilesystemDrivers;
+namespace FoF\Filesystem;
 
 use Flarum\Settings\SettingsRepositoryInterface;
+use Illuminate\Contracts\Support\Arrayable;
 
-abstract class Driver
+abstract class Driver implements Arrayable
 {
     /** @var string Slug of driver name, also used for translation keys. */
     public $name;
@@ -23,12 +24,14 @@ abstract class Driver
 
     /**
      * Whether the driver is available for use.
+     * You can validate stored settings to prevent a faulty
+     * driver from being used.
      *
      * @return bool
      */
     public function isAvailable(): bool
     {
-        // whether settings are all validated
+        return $this->isInstalled();
     }
 
     /**

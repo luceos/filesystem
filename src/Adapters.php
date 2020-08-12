@@ -1,8 +1,8 @@
 <?php
 
-namespace FoF\FilesystemDrivers;
+namespace FoF\Filesystem;
 
-use FoF\FilesystemDrivers\Event\DriverLoading;
+use FoF\Filesystem\Event\DriverLoading;
 use Illuminate\Support\Collection;
 
 class Adapters

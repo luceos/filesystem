@@ -47,9 +47,9 @@ export default class AdapterCard extends Component {
             items.add('required-package', Button.component({
                 icon: 'fas fa-cogs',
                 children: app.translator.trans('flagrow-backup.admin.required_package_button'),
-                onclick: () => app.modal.show(new RequiredPackageModal({
+                onclick: () => app.modal.show(RequiredPackageModal,{
                     adapter: this.adapter
-                }))
+                })
             }));
 
             return items;
@@ -65,10 +65,9 @@ export default class AdapterCard extends Component {
     }
 
     settingsModal() {
-        app.modal.show(new AdapterSettingsModal({
-            adapter: this.adapter,
-            settings: this.settings
-        }))
+        app.modal.show(AdapterSettingsModal, {
+            adapter: this.adapter
+        });
     }
 
     toggle(adapter) {

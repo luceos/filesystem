@@ -1,11 +1,11 @@
 <?php
 
-namespace FoF\FilesystemDrivers;
+namespace FoF\Filesystem;
 
 use Flarum\Foundation\AbstractServiceProvider;
-use FoF\FilesystemDrivers\Event\DriverLoading;
+use FoF\Filesystem\Event\DriverLoading;
 use Illuminate\Contracts\Events\Dispatcher;
-use FoF\FilesystemDrivers\Drivers;
+use FoF\Filesystem\Drivers;
 
 class Provider extends AbstractServiceProvider
 {

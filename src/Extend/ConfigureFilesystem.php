@@ -1,12 +1,12 @@
 <?php
 
-namespace FoF\FilesystemDrivers\Extend;
+namespace FoF\Filesystem\Extend;
 
 use Flarum\Extend\ExtenderInterface;
 use Flarum\Extension\Extension;
 use FoF\Extend\Extend\ExtensionSettings;
-use FoF\FilesystemDrivers\Extension\DriverRequirement;
-use FoF\FilesystemDrivers\Manager;
+use FoF\Filesystem\Extension\DriverRequirement;
+use FoF\Filesystem\Manager;
 use Illuminate\Contracts\Container\Container;
 
 /**

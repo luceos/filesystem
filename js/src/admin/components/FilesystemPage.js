@@ -5,7 +5,7 @@ export default class FilesystemPage extends Page {
     init() {
         super.init();
 
-        this.adapters = app.data.settings['fof-filesystem-drivers-adapters'] || {};
+        this.adapters = app.data.settings['fof-filesystem-adapters'] || {};
 
         // Only needed in UX, so lets hack it in.
         this.icons = {

@@ -5,7 +5,9 @@ fof-filesystem:
       description: Configure filesystems used by extensions.
     button:
       required_package: Packages required
-      settings: Settings
+      driver: Select driver
+      settings: Configure
+      override_settings: Override driver settings
     adapter-settings-modal:
       title: "Settings for {adapter}"
     requested-list: Requests

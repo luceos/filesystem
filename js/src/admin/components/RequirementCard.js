@@ -3,14 +3,13 @@ import ItemList from "flarum/utils/ItemList";
 import Dropdown from "flarum/components/Dropdown";
 import Button from 'flarum/components/Button';
 import icon from 'flarum/helpers/icon';
-import saveSettings from 'flarum/utils/saveSettings';
-import RequirementSettingModal from "./RequirementSettingModal";
+import RequirementAdapterModal from "./RequirementAdapterModal";
+import OverrideSettingModal from "./OverrideSettingModal";
 
 export default class RequirementCard extends Component {
     init() {
         this.requested = this.props.requested;
-        // @todo if matched with an active driver, mark it enabled
-        this.driver = false;
+        this.adapters = this.props.adapters;
     }
 
     view() {
@@ -31,7 +30,7 @@ export default class RequirementCard extends Component {
                     </Dropdown>
                 ) : ''}
                 <label className="ExtensionListItem-title">
-                    <input type="checkbox" checked={this.driver} disabled/>
+                    <input type="checkbox" checked={this.requested.uses !== null} disabled/>
                     {' '}{this.requested.extension ? this.requested.extension + ': ' : ''}{this.requested.title}
                     {this.requested.description ? <div>{this.requested.description }</div> : ''}
                 </label>
@@ -42,17 +41,34 @@ export default class RequirementCard extends Component {
     controls() {
         const items = new ItemList;
 
-        items.add('settings', Button.component({
-          icon: 'fas fa-cogs',
-          children: app.translator.trans('fof-filesystem.admin.button.settings'),
+        items.add('driver', Button.component({
+          icon: 'fas fa-box',
+          children: app.translator.trans('fof-filesystem.admin.button.driver'),
           onclick: () => this.settingsModal()
         }));
+
+        if (this.requested.uses) {
+          items.add('override-settings', Button.component({
+            icon: 'fas fa-gear',
+            children: app.translator.trans('fof-filesystem.admin.button.override_settings'),
+            onclick: () => this.overrideSettingsModal()
+          }));
+        }
 
         return items;
     }
 
+    overrideSettingsModal() {
+      const adapter = this.props.adapters[this.requested.uses];
+
+      app.modal.show(OverrideSettingModal, {
+        requested: this.requested,
+        adapter: adapter
+      });
+    }
+
     settingsModal() {
-        app.modal.show(RequirementSettingModal, {
+        app.modal.show(RequirementAdapterModal, {
           requested: this.requested,
           adapters: this.props.adapters
         });

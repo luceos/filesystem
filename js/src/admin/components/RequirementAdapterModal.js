@@ -3,7 +3,7 @@ import SettingsModal from 'flarum/components/SettingsModal';
 import ItemList from "flarum/utils/ItemList";
 import Select from 'flarum/components/Select';
 
-export default class RequirementSettingModal extends SettingsModal {
+export default class RequirementAdapterModal extends SettingsModal {
   init() {
     super.init();
 
@@ -11,6 +11,10 @@ export default class RequirementSettingModal extends SettingsModal {
     this.adapters = {};
 
     for (const [name, adapter] of Object.entries(this.props.adapters)) {
+      if (! adapter.enabled && this.requested.uses !== adapter.name) {
+        continue;
+      }
+
       if (! adapter.installed) {
         continue;
       }
@@ -46,5 +50,11 @@ export default class RequirementSettingModal extends SettingsModal {
     );
 
     return items;
+  }
+
+  onsaved() {
+    this.requested.uses = this.setting(this.requested.settingKey)();
+
+    super.onsaved();
   }
 }

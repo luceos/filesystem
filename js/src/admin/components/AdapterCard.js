@@ -33,7 +33,7 @@ export default class AdapterCard extends Component {
                     </Dropdown>
                 ) : ''}
                 <label className="ExtensionListItem-title">
-                    <input type="checkbox" checked={this.enabled} onclick={this.toggle.bind(this, this.adapter['name'])}/> {' '}
+                    <input type="checkbox" checked={this.enabled} disabled={this.adapter.inUse} onclick={this.toggle.bind(this, this.adapter['name'])}/> {' '}
                     {app.translator.trans('fof-filesystem.admin.adapters.' + this.adapter['name'])}
                 </label>
             </div>
@@ -73,8 +73,8 @@ export default class AdapterCard extends Component {
     toggle(adapter) {
       const enabled = this.props.ontoggle();
 
-        saveSettings({
-            'fof-filesystem-adapters-enabled': enabled.filter(tmp => tmp.length > 0).join(',')
-        });
+      saveSettings({
+          'fof-filesystem-adapters-enabled': enabled.filter(tmp => tmp.length > 0).join(',')
+      });
     }
 }

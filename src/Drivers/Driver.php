@@ -21,6 +21,8 @@ abstract class Driver implements Arrayable
 
     /** @var bool Driver stores files off site. */
     public $offSite = true;
+    /** @var bool Driver is in use by any of the requirements. */
+    public $inUse = false;
 
     /**
      * Whether the driver is available for use.
@@ -46,18 +48,6 @@ abstract class Driver implements Arrayable
     }
 
     /**
-     * Whether the driver is in use by one or more extensions.
-     *
-     * @info Checks all registered Requirements and sees whether Extension is still installed.
-     *
-     * @return bool
-     */
-    public function isInUse(): bool
-    {
-
-    }
-
-    /**
      * Whether required packages are installed.a
      *
      * @return bool
@@ -65,6 +55,22 @@ abstract class Driver implements Arrayable
     public function isInstalled(): bool
     {
         return empty($this->class) || class_exists($this->class);
+    }
+
+    public function inUse(bool $inUse = true)
+    {
+        $this->inUse = $inUse;
+        return $this;
+    }
+
+    /**
+     * Whether the driver is in use by any of the requirements.
+     *
+     * @return bool
+     */
+    public function isInUse(): bool
+    {
+        return $this->inUse;
     }
 
     public function toArray(): array

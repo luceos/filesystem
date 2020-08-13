@@ -9,14 +9,15 @@ export default class RequirementSettingModal extends SettingsModal {
 
     this.requested = this.props.requested;
     this.adapters = {};
-    for (let adapter of this.props.adapters) {
+
+    for (const [name, adapter] of Object.entries(this.props.adapters)) {
       if (! adapter.installed) {
         continue;
       }
       if (this.requested.public === true && adapter.public === false) {
         continue;
       }
-      this.adapters[adapter.name] = app.translator.trans('fof-filesystem.admin.adapters.' + adapter.name);
+      this.adapters[name] = app.translator.trans('fof-filesystem.admin.adapters.' + name);
     }
   }
   title() {
@@ -38,7 +39,7 @@ export default class RequirementSettingModal extends SettingsModal {
         m('label', {}, app.translator.trans('fof-filesystem.admin.requested-driver-modal.adapter')),
         Select.component({
           options: this.adapters,
-          value: this.requested.default,
+          value: this.setting(this.requested.settingKey)() || this.requested.default,
           onchange: this.setting(this.requested.settingKey)
         }),
       ])

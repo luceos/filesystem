@@ -801,19 +801,12 @@ function (_SettingsModal) {
     this.requested = this.props.requested;
     this.adapters = {};
 
-    for (var _iterator = this.props.adapters, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-      var _ref;
+    var _arr = Object.entries(this.props.adapters);
 
-      if (_isArray) {
-        if (_i >= _iterator.length) break;
-        _ref = _iterator[_i++];
-      } else {
-        _i = _iterator.next();
-        if (_i.done) break;
-        _ref = _i.value;
-      }
-
-      var adapter = _ref;
+    for (var _i = 0; _i < _arr.length; _i++) {
+      var _arr$_i = _arr[_i],
+          name = _arr$_i[0],
+          adapter = _arr$_i[1];
 
       if (!adapter.installed) {
         continue;
@@ -823,7 +816,7 @@ function (_SettingsModal) {
         continue;
       }
 
-      this.adapters[adapter.name] = flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('fof-filesystem.admin.adapters.' + adapter.name);
+      this.adapters[name] = flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('fof-filesystem.admin.adapters.' + name);
     }
   };
 
@@ -844,7 +837,7 @@ function (_SettingsModal) {
       className: 'Form-group'
     }, [m('label', {}, flarum_app__WEBPACK_IMPORTED_MODULE_1___default.a.translator.trans('fof-filesystem.admin.requested-driver-modal.adapter')), flarum_components_Select__WEBPACK_IMPORTED_MODULE_4___default.a.component({
       options: this.adapters,
-      value: this.requested.default,
+      value: this.setting(this.requested.settingKey)() || this.requested.default,
       onchange: this.setting(this.requested.settingKey)
     })]));
     return items;

@@ -134,7 +134,8 @@ class DriverRequirement implements Arrayable
             'default' => $this->default,
             'public' => $this->public,
             'ignore' => $this->ignore,
-            'icon' => $this->extension->getIcon()
+            'icon' => $this->extension->getIcon(),
+            'uses' => $this->uses()
         ];
     }
 }

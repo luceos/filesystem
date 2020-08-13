@@ -26,3 +26,6 @@ fof-filesystem:
       local:
         target:
           description: Target directory for storage, relative to Flarum root path.
+    requested-driver-modal:
+      title: Configure a filesystem for '{requested}'
+      adapter: Choose the filesystem

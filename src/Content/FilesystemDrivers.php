@@ -23,14 +23,14 @@ class FilesystemDrivers
     {
         Arr::set(
             $document->payload['settings'],
-            'fof-filesystem-adapters',
-            $this->manager->adapters()->all()->toArray()
+            'fof-filesystem-requirements',
+            $requirements = $this->manager->requirements()
         );
 
         Arr::set(
             $document->payload['settings'],
-            'fof-filesystem-requirements',
-            $this->manager->requirements()
+            'fof-filesystem-adapters',
+            $this->manager->adapters()->all($requirements)->toArray()
         );
     }
 }
